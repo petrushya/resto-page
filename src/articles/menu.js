@@ -2,7 +2,7 @@ export const menuArticle = [
   {
     "name": "Wonderful Salad with Fantasies",
     "img": [ "", "300", "220" ],
-    "itemName": "Ingreients:",
+    "itemName": "Ingredients:",
     "info": [
        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
        "Ullam deleniti quos modi iusto aliquam perspiciatis eius.",
@@ -13,7 +13,7 @@ export const menuArticle = [
   {
     "name": "Fantastic Dreamer's Salad",
     "img": [ "", "300", "220" ],
-    "itemName": "Ingreients:",
+    "itemName": "Ingredients:",
     "info": [
        "Maxime quam dicta nihil ea doloremque est voluptatum.",
        "Excepturi dolores delectus repudiandae reprehenderit repellendus.",
@@ -24,7 +24,7 @@ export const menuArticle = [
   {
     "name": "Chili Sunny Mix",
     "img": [ "", "300", "220" ],
-    "itemName": "Ingreients:",
+    "itemName": "Ingredients:",
     "info": [
        "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
        "Ullam deleniti quos modi iusto aliquam perspiciatis eius.",
@@ -36,7 +36,7 @@ export const menuArticle = [
   {
     "name": "Festive Roll with Tart Sea Wind",
     "img": [ "", "300", "220" ],
-    "itemName": "Ingreients:",
+    "itemName": "Ingredients:",
     "info": [
        "Maxime quam dicta nihil ea doloremque est voluptatum.",
        "Excepturi dolores delectus repudiandae reprehenderit repellendus.",
@@ -59,7 +59,7 @@ export const menuArticle = [
   {
     "name": "Evening Chill Wine",
     "img": [ "", "300", "220" ],
-    "itemName": "Ingreients:",
+    "itemName": "Ingredients:",
     "info": [
        "Dolorum fuga, earum deserunt repellat labore.",
        "Accusantium omnis ut illo eveniet optio minus.",
