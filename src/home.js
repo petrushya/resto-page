@@ -1,4 +1,5 @@
 import { homeArticle } from './articles/home.js';
+import simpsmile from '../images/simpsmile.svg';
 
 export function homepage(){
   const main = document.createElement('main');
@@ -19,8 +20,9 @@ export function homepage(){
         article.appendChild(articleTitle);
         break;
       case 'img':
-        const articleImg = document.createElement('img');
+        const articleImg = new Image();
         articleImg.src = homeArticle[i]['img'][0];
+        if(homeArticle[i]['img'][0].includes('simpsmile')) articleImg.src = simpsmile;
         articleImg.setAttribute('width', homeArticle[i]['img'][1]);
         articleImg.setAttribute('height', homeArticle[i]['img'][2]);
         article.appendChild(articleImg);
