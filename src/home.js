@@ -20,7 +20,7 @@ export function homepage(){
         break;
       case 'img':
         const articleImg = document.createElement('img');
-        articleImg.setAttribute('src', homeArticle[i]['img'][0]);
+        articleImg.src = homeArticle[i]['img'][0];
         articleImg.setAttribute('width', homeArticle[i]['img'][1]);
         articleImg.setAttribute('height', homeArticle[i]['img'][2]);
         article.appendChild(articleImg);
