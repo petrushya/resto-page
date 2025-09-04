@@ -95,7 +95,7 @@ section {
   filter: drop-shadow(0 0 1.25rem var(--shadowcolor));
   box-shadow: 0 0 1.25rem 1.25rem var(--shadowcolor);
   margin: 3.5rem auto;
-  scroll-margin-block-start: 11.5rem;
+  scroll-margin-block-start: 11.25rem;
 }
 .mainpara {
   font-size: 1.25rem;
