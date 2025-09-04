@@ -1,60 +1,133 @@
-import './style.css';
-import { homepage } from './home.js';
-import { menupage } from './menu.js';
-import { aboutpage } from './about.js';
+import "./style.css";
+import dataList from "./articles/dataList.js";
+import smile from "../images/simpsmile.svg";
 
-const body = document.querySelector('body');
-const hWrapper = document.createElement('div');
-const header = document.createElement('header');
-const nav = document.createElement('nav');
-const mainContent = document.createElement('div');
-const footer = document.createElement('footer');
-const para = document.createElement('p');
-const fWrapper = document.createElement('div');
-const homeBtn = document.createElement('button');
-const menuBtn = document.createElement('button');
-const aboutBtn = document.createElement('button');
+const body = document.body;
+const hWrapper = document.createElement("div");
+const header = document.createElement("header");
+const pagenav = document.createElement("nav");
+const main = document.createElement("main");
+const footer = document.createElement("footer");
+const para = document.createElement("p");
+const fWrapper = document.createElement("div");
 
-mainContent.appendChild(homepage());
-const pageTitle = document.querySelector('head title');
-pageTitle.textContent = `HOME - TIM`;
+const pageTitle = document.querySelector("head title");
+pageTitle.textContent = `SPECIALS - TIM`;
 
-hWrapper.className = 'wrapper';
-fWrapper.className = 'wrapper';
-mainContent.id = 'content';
-homeBtn.setAttribute('type', 'button');
-homeBtn.setAttribute('name', 'home');
-homeBtn.className = 'color';
-homeBtn.textContent = homeBtn.name.toUpperCase();
-menuBtn.setAttribute('type', 'button');
-menuBtn.setAttribute('name', 'menu');
-menuBtn.textContent = menuBtn.name.toUpperCase();
-aboutBtn.setAttribute('type', 'button');
-aboutBtn.setAttribute('name', 'about');
-aboutBtn.textContent = aboutBtn.name.toUpperCase();
-para.innerHTML = '&trade; Mirage&Freak';
+const link = document.querySelector('link[rel="icon"]');
+link.href = smile;
 
-nav.appendChild(homeBtn);
-nav.appendChild(menuBtn);
-nav.appendChild(aboutBtn);
-header.appendChild(nav);
+hWrapper.className = "wrapper first";
+fWrapper.className = "wrapper";
+main.id = "content";
+para.innerHTML = "&trade; Mirage&Freak";
+
+pagenav.id = "pagenav";
+header.appendChild(pagenav);
 hWrapper.appendChild(header);
 footer.appendChild(para);
 fWrapper.appendChild(footer);
 body.appendChild(hWrapper);
-body.appendChild(mainContent);
+body.appendChild(main);
 body.appendChild(fWrapper);
 
-const buttons = document.querySelectorAll('button');
-for(let i = 0; i < buttons.length; i++){
-  buttons[i].onclick = () => {
-    buttons.forEach(item => item.removeAttribute('class'));
-    buttons[i].classList = 'color';
-    const pageTitle = document.querySelector('head title');
-    pageTitle.textContent = `${buttons[i].name.toUpperCase()} - TIM`;
-    mainContent.textContent = '';
-    if(buttons[i].name === 'home') mainContent.appendChild(homepage());
-    if(buttons[i].name === 'menu') mainContent.appendChild(menupage());
-    if(buttons[i].name === 'about') mainContent.appendChild(aboutpage());
-  }
-};
+dataList[0].forEach((item, itemIndex) => {
+  const a = document.createElement("a");
+  a.id = "a-" + dataList[item].id;
+  a.href = "#" + dataList[item].id;
+  a.className = "button";
+  a.textContent = dataList[item].id;
+  pagenav.append(a);
+  const section = document.createElement("section");
+  const title = document.createElement("h1");
+  const para = document.createElement("p");
+  section.id = dataList[item].id;
+  title.textContent = dataList[item].title.toUpperCase();
+  para.textContent = dataList[item].para;
+  para.className = "mainpara";
+  section.append(title);
+  section.append(para);
+  main.append(section);
+  dataList[item].list.forEach((mark) => {
+    const article = document.createElement("article");
+    section.append(article);
+    Object.keys(dataList[mark]).forEach((key) => {
+      switch (key) {
+        case "name":
+          const title = document.createElement("h2");
+          title.textContent = dataList[mark][key];
+          article.append(title);
+          break;
+        case "img":
+          const image = new Image();
+          image.src =
+            dataList[mark][key][0] == "smile" ? smile : dataList[mark][key][0];
+          image.width = dataList[mark][key][1];
+          image.height = dataList[mark][key][2];
+          if (dataList[mark][key][0])
+            image.alt = "Picture " + dataList[mark].name;
+          article.append(image);
+          break;
+        case "itemName":
+          const itemTitle = document.createElement("h3");
+          itemTitle.textContent = dataList[mark][key];
+          article.append(itemTitle);
+          break;
+        case "info":
+          let order;
+          itemIndex == 1
+            ? (order ??= document.createElement("ol"))
+            : (order ??= document.createElement("ul"));
+          article.append(order);
+          dataList[mark][key].forEach((text, infoIndex) => {
+            const li = document.createElement("li");
+            order.append(li);
+            li.textContent = text;
+            if (itemIndex == dataList[0].length - 1) {
+              const span = document.createElement("span");
+              !infoIndex
+                ? (span.textContent = "Phones: ")
+                : infoIndex == 1
+                ? (span.textContent = "Email: ")
+                : (span.textContent = "Socials: ");
+              li.prepend(span);
+            }
+          });
+          break;
+        case "price":
+          if (dataList[mark][key]) {
+            const p = document.createElement("p");
+            const span = document.createElement("span");
+            p.textContent = dataList[mark][key];
+            span.textContent = "Price: ";
+            p.prepend(span);
+            article.append(p);
+          }
+          break;
+      }
+    });
+  });
+});
+
+const allA = Array.from(pagenav.children);
+const sections = Array.from(main.children);
+for (let i = 0; i < allA.length; i++) {
+  allA[i].onclick = () => {
+    pageTitle.textContent = `${allA[i].id.slice(2).toUpperCase()} - TIM`;
+  };
+}
+
+window.addEventListener("scroll", () => {
+  sections.forEach((item, index) => {
+    if (sections[index + 1]) {
+      item.offsetTop <= window.pageYOffset + sections[0].offsetTop &&
+      window.pageYOffset + sections[0].offsetTop < sections[index + 1].offsetTop
+        ? allA[index].className = "color"
+        : allA[index].className = "";
+    } else {
+      item.offsetTop <= window.pageYOffset + sections[0].offsetTop
+        ? allA[index].className = "color"
+        : allA[index].className = "";
+    }
+  });
+});
